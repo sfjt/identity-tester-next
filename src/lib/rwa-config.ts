@@ -27,6 +27,7 @@ const config: ConfigParameters = {
   session: {
     store: new Store(),
   },
+  backchannelLogout: true,
 }
 
 export default function auth0() {
