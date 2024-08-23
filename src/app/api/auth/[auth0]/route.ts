@@ -1,8 +1,7 @@
 import auth0 from "../../../../lib/rwa-config"
 
 const auth0Server = auth0()
-
-export const GET = auth0Server.handleAuth({
+const handler = auth0Server.handleAuth({
   login: auth0Server.handleLogin(() => {
     return {
       returnTo: `${process.env.AUTH0_BASE_URL}/rwa`,
@@ -14,3 +13,6 @@ export const GET = auth0Server.handleAuth({
     }
   }),
 })
+
+export const GET = handler
+export const POST = handler
