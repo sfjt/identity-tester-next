@@ -14,11 +14,13 @@
     "@auth0/nextjs-auth0": "^3.5.0",
     "@upstash/redis": "^1.34.0",
     "next": "14.2.6",
+    "qs": "^6.13.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
+    "@types/qs": "^6.9.15",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",

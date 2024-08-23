@@ -34,16 +34,6 @@ export default async function RWALayout({
     <UserProvider>
       <main>
         <h2>Regular Web Application</h2>
-        <nav>
-          <ul>
-            <li>
-              <a href="/api/auth/login">Login</a>
-            </li>
-            <li>
-              <a href="/api/auth/logout">Logout</a>
-            </li>
-          </ul>
-        </nav>
         {children}
         <section>
           <h3>Session</h3>
