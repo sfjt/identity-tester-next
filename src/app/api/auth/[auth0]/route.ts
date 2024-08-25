@@ -1,7 +1,6 @@
 import qs from "qs"
 
 import auth0 from "../../../../lib/rwa-config"
-import { LogoutOptions } from "@auth0/nextjs-auth0"
 
 interface _LoginOptions {
   returnTo: string
