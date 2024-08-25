@@ -2,14 +2,14 @@ import qs from "qs"
 
 import auth0 from "../../../../lib/rwa-config"
 
-interface _LoginOptions {
+interface CustomLoginOptions {
   returnTo: string
   authorizationParams: {
     [prop: string]: any
   }
 }
 
-interface _LogoutOptions {
+interface CustomLogoutOptions {
   returnTo: string
   logoutParams: {
     [prop: string]: any
@@ -19,9 +19,10 @@ interface _LogoutOptions {
 const defaultReturnTo = `${process.env.AUTH0_BASE_URL}/rwa`
 
 const auth0Server = auth0()
+
 const handler = auth0Server.handleAuth({
   login: auth0Server.handleLogin((req) => {
-    const loginOptions: _LoginOptions = {
+    const loginOptions: CustomLoginOptions = {
       returnTo: defaultReturnTo,
       authorizationParams: {},
     }
@@ -39,18 +40,17 @@ const handler = auth0Server.handleAuth({
         loginOptions.authorizationParams[k] = params[k]
       })
     }
-    console.log("Login options:", loginOptions)
+    console.log("Login options: ", loginOptions)
     return loginOptions
   }),
   logout: auth0Server.handleLogout((req) => {
-    const logoutOptions: _LogoutOptions = {
+    const logoutOptions: CustomLogoutOptions = {
       returnTo: defaultReturnTo,
       logoutParams: {},
     }
     if (req.url) {
       const url = new URL(req.url)
       const params = qs.parse(url.searchParams.toString())
-      console.log(req.url)
       Object.keys(params).forEach((k) => {
         if (typeof params[k] !== "string") {
           return
@@ -62,7 +62,7 @@ const handler = auth0Server.handleAuth({
         logoutOptions.logoutParams[k] = params[k]
       })
     }
-    console.log("Logout options:", logoutOptions)
+    console.log("Logout options: ", logoutOptions)
     return logoutOptions
   }),
 })
