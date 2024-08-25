@@ -1,0 +1,17 @@
+.custom-params-label {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.custom-params-hidden {
+  display: none;
+}
+
+.custom-params-valid {
+  color: green;
+}
+
+.custom-params-invalid-or-empty {
+  color: red;
+}
+

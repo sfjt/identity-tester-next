@@ -2,58 +2,39 @@
 import { useUser } from "@auth0/nextjs-auth0/client"
 import { ChangeEvent, useState } from "react"
 
+import "./rwa.css"
+import styles from "./rwa.module.css"
+
 export default function RWAPage() {
   const [state, setState] = useState({
-    loginParams: {},
-    logoutParams: {},
+    customParams: "",
+    customParamsEnabled: false,
   })
   const { user, error, isLoading } = useUser()
 
   function login() {
-    let href = "/api/auth/login"
-    if (Object.keys(state.loginParams).length) {
-      const params = new URLSearchParams(state.loginParams).toString()
-      href += `?${params}`
-    }
-    window.location.href = href
+    window.location.href = addParams("/api/auth/login")
   }
 
   function logout() {
-    let href = "/api/auth/logout"
-    if (Object.keys(state.logoutParams).length) {
-      const params = new URLSearchParams(state.logoutParams).toString()
-      href += `?${params}`
-    }
-    window.location.href = href
+    window.location.href = addParams("/api/auth/logout")
   }
 
-  function parseLoginParams(event: ChangeEvent<HTMLTextAreaElement>) {
-    const v = event.target.value
-    if (!v) {
-      return
+  function addParams(href: string) {
+    if (state.customParamsEnabled && state.customParams) {
+      return `${href}?${state.customParams}`
     }
+    return href
+  }
 
-    let j = {}
-    try {
-      j = JSON.parse(v)
-    } catch (err) {
-      event.target.style.borderColor = "red"
-      if (Object.keys(state.loginParams).length) {
-        setState({
-          ...state,
-          loginParams: {},
-        })
-      }
-      return
-    }
-    event.target.style.borderColor = "green"
+  function toggleCustomParams() {
     setState({
       ...state,
-      loginParams: j,
+      customParamsEnabled: !state.customParamsEnabled,
     })
   }
 
-  function parseLogoutParams(event: ChangeEvent<HTMLTextAreaElement>) {
+  function parseCustomParams(event: ChangeEvent<HTMLTextAreaElement>) {
     const v = event.target.value
     if (!v) {
       return
@@ -63,19 +44,16 @@ export default function RWAPage() {
     try {
       j = JSON.parse(v)
     } catch (err) {
-      event.target.style.borderColor = "red"
-      if (Object.keys(state.logoutParams).length) {
-        setState({
-          ...state,
-          logoutParams: {},
-        })
-      }
+      setState({
+        ...state,
+        customParams: "",
+      })
       return
     }
-    event.target.style.borderColor = "green"
+    const params = new URLSearchParams(j).toString()
     setState({
       ...state,
-      logoutParams: j,
+      customParams: params,
     })
   }
 
@@ -94,28 +72,45 @@ export default function RWAPage() {
             <p>
               <button onClick={login}>Login</button>
             </p>
-            <p>
-              <textarea
-                onChange={parseLoginParams}
-                rows={10}
-                cols={50}
-              ></textarea>
-            </p>
           </li>
-
           <li>
             <p>
               <button onClick={logout}>Logout</button>
             </p>
-            <p>
-              <textarea
-                onChange={parseLogoutParams}
-                rows={10}
-                cols={50}
-              ></textarea>
-            </p>
           </li>
         </ul>
+        <div>
+          <label
+            onClick={toggleCustomParams}
+            htmlFor="custom-params"
+            className={styles["custom-params-label"]}
+          >
+            {state.customParamsEnabled ? "-" : "+"} Custom login/logout params
+          </label>
+          <div
+            className={
+              state.customParamsEnabled ? "" : styles["custom-params-hidden"]
+            }
+          >
+            <p>
+              <textarea
+                onChange={parseCustomParams}
+                rows={10}
+                cols={50}
+                id="custom-params"
+              ></textarea>
+            </p>
+            {state.customParams ? (
+              <p className={styles["custom-params-valid"]}>
+                {state.customParams}
+              </p>
+            ) : (
+              <p className={styles["custom-params-invalid-or-empty"]}>
+                {"(Invalid or empty JSON)"}
+              </p>
+            )}
+          </div>
+        </div>
       </nav>
       <section>
         <h3>User</h3>
