@@ -13,14 +13,14 @@ export default function RWAPage() {
   const { user, error, isLoading } = useUser()
 
   function login() {
-    window.location.href = addParams("/api/auth/login")
+    window.location.href = addCustomParams("/api/auth/login")
   }
 
   function logout() {
-    window.location.href = addParams("/api/auth/logout")
+    window.location.href = addCustomParams("/api/auth/logout")
   }
 
-  function addParams(href: string) {
+  function addCustomParams(href: string) {
     if (state.customParamsEnabled && state.customParams) {
       return `${href}?${state.customParams}`
     }
@@ -80,39 +80,17 @@ export default function RWAPage() {
           </li>
           <li>
             <div>
-              <label
-                onClick={toggleCustomParams}
-                htmlFor="custom-params"
-                className={styles["custom-params-label"]}
-              >
-                <button>
-                  {state.customParamsEnabled ? "-" : "+"} Custom login/logout
-                  params
-                </button>
+              <label onClick={toggleCustomParams} htmlFor="custom-params" className={styles["custom-params-label"]}>
+                <button>{state.customParamsEnabled ? "-" : "+"} Custom login/logout params</button>
               </label>
-              <div
-                className={
-                  state.customParamsEnabled
-                    ? ""
-                    : styles["custom-params-hidden"]
-                }
-              >
+              <div className={state.customParamsEnabled ? "" : styles["custom-params-hidden"]}>
                 <p>
-                  <textarea
-                    onChange={parseCustomParams}
-                    rows={10}
-                    cols={50}
-                    id="custom-params"
-                  >{`{\n  \n}`}</textarea>
+                  <textarea onChange={parseCustomParams} rows={10} cols={50} id="custom-params">{`{\n  \n}`}</textarea>
                 </p>
                 {state.customParams ? (
-                  <p className={styles["custom-params-valid"]}>
-                    {state.customParams}
-                  </p>
+                  <p className={styles["custom-params-valid"]}>{state.customParams}</p>
                 ) : (
-                  <p className={styles["custom-params-invalid-or-empty"]}>
-                    {"(Invalid or empty JSON)"}
-                  </p>
+                  <p className={styles["custom-params-invalid-or-empty"]}>{"(Invalid or empty JSON)"}</p>
                 )}
               </div>
             </div>

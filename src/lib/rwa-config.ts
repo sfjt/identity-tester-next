@@ -1,8 +1,4 @@
-import type {
-  SessionStorePayload,
-  SessionStore,
-  ConfigParameters,
-} from "@auth0/nextjs-auth0"
+import type { SessionStorePayload, SessionStore, ConfigParameters } from "@auth0/nextjs-auth0"
 import { initAuth0 } from "@auth0/nextjs-auth0"
 import { Redis } from "@upstash/redis"
 
