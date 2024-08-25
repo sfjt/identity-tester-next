@@ -67,5 +67,4 @@ const handler = auth0Server.handleAuth({
   }),
 })
 
-export const GET = handler
-export const POST = handler
+export { handler as GET, handler as POST }
