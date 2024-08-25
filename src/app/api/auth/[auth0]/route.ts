@@ -40,7 +40,7 @@ const handler = auth0Server.handleAuth({
         loginOptions.authorizationParams[k] = params[k]
       })
     }
-    console.log("Login options: ", loginOptions)
+    console.log("Login options:", `\n${JSON.stringify(loginOptions, null, 2)}`)
     return loginOptions
   }),
   logout: auth0Server.handleLogout((req) => {
@@ -62,7 +62,7 @@ const handler = auth0Server.handleAuth({
         logoutOptions.logoutParams[k] = params[k]
       })
     }
-    console.log("Logout options: ", logoutOptions)
+    console.log("Logout options:", `\n${JSON.stringify(logoutOptions, null, 2)}`)
     return logoutOptions
   }),
 })
