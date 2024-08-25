@@ -78,39 +78,41 @@ export default function RWAPage() {
               <button onClick={logout}>Logout</button>
             </p>
           </li>
+          <li>
+            <div>
+              <label
+                onClick={toggleCustomParams}
+                htmlFor="custom-params"
+                className={styles["custom-params-label"]}
+              >
+                <button>{state.customParamsEnabled ? "-" : "+"} Custom login/logout params</button>
+              </label>
+              <div
+                className={
+                  state.customParamsEnabled ? "" : styles["custom-params-hidden"]
+                }
+              >
+                <p>
+                  <textarea
+                    onChange={parseCustomParams}
+                    rows={10}
+                    cols={50}
+                    id="custom-params"
+                  >{`{\n  \n}`}</textarea>
+                </p>
+                {state.customParams ? (
+                  <p className={styles["custom-params-valid"]}>
+                    {state.customParams}
+                  </p>
+                ) : (
+                  <p className={styles["custom-params-invalid-or-empty"]}>
+                    {"(Invalid or empty JSON)"}
+                  </p>
+                )}
+              </div>
+            </div>
+          </li>
         </ul>
-        <div>
-          <label
-            onClick={toggleCustomParams}
-            htmlFor="custom-params"
-            className={styles["custom-params-label"]}
-          >
-            {state.customParamsEnabled ? "-" : "+"} Custom login/logout params
-          </label>
-          <div
-            className={
-              state.customParamsEnabled ? "" : styles["custom-params-hidden"]
-            }
-          >
-            <p>
-              <textarea
-                onChange={parseCustomParams}
-                rows={10}
-                cols={50}
-                id="custom-params"
-              ></textarea>
-            </p>
-            {state.customParams ? (
-              <p className={styles["custom-params-valid"]}>
-                {state.customParams}
-              </p>
-            ) : (
-              <p className={styles["custom-params-invalid-or-empty"]}>
-                {"(Invalid or empty JSON)"}
-              </p>
-            )}
-          </div>
-        </div>
       </nav>
       <section>
         <h3>User</h3>
