@@ -2,7 +2,6 @@
 import { useUser } from "@auth0/nextjs-auth0/client"
 import { ChangeEvent, useState } from "react"
 
-import "./rwa.css"
 import styles from "./rwa.module.css"
 
 export default function RWAPage() {
