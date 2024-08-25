@@ -12,17 +12,17 @@ export default async function RWALayout({
   const accessToken = session?.accessToken || "N/A"
   const idToken = session?.idToken || "N/A"
   const refreshToken = session?.refreshToken || "N/A"
+  
   let sessionInfo = <p>N/A</p>
+
   if (session) {
     sessionInfo = (
       <div>
         <dl>
           <dt>Access token:</dt>
           <dd>{accessToken}</dd>
-
           <dt>ID token:</dt>
           <dd>{idToken}</dd>
-
           <dt>Refresh token:</dt>
           <dd>{refreshToken}</dd>
         </dl>

@@ -96,6 +96,7 @@ export default function RWAPage() {
           </li>
         </ul>
       </nav>
+      
       <section>
         <h3>User</h3>
         <p>{user?.email || "N/A"}</p>
