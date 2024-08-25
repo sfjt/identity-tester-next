@@ -85,11 +85,16 @@ export default function RWAPage() {
                 htmlFor="custom-params"
                 className={styles["custom-params-label"]}
               >
-                <button>{state.customParamsEnabled ? "-" : "+"} Custom login/logout params</button>
+                <button>
+                  {state.customParamsEnabled ? "-" : "+"} Custom login/logout
+                  params
+                </button>
               </label>
               <div
                 className={
-                  state.customParamsEnabled ? "" : styles["custom-params-hidden"]
+                  state.customParamsEnabled
+                    ? ""
+                    : styles["custom-params-hidden"]
                 }
               >
                 <p>
