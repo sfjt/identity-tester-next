@@ -10,7 +10,7 @@ export default async function RWALayout({
   const accessToken = session?.accessToken || "N/A"
   const idToken = session?.idToken || "N/A"
   const refreshToken = session?.refreshToken || "N/A"
-  
+
   let sessionInfo = <p>N/A</p>
 
   if (session) {
