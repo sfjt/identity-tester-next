@@ -1,14 +1,12 @@
 import auth0 from "../../lib/rwa-config"
 import { UserProvider } from "@auth0/nextjs-auth0/client"
 
-const auth0Server = auth0()
-
 export default async function RWALayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
-  const session = await auth0Server.getSession()
+  const session = await auth0.getSession()
   const accessToken = session?.accessToken || "N/A"
   const idToken = session?.idToken || "N/A"
   const refreshToken = session?.refreshToken || "N/A"

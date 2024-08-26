@@ -26,6 +26,4 @@ const config: ConfigParameters = {
   backchannelLogout: true,
 }
 
-export default function auth0() {
-  return initAuth0(config)
-}
+export default initAuth0(config)

@@ -18,10 +18,8 @@ interface CustomLogoutOptions {
 
 const defaultReturnTo = `${process.env.AUTH0_BASE_URL}/rwa`
 
-const auth0Server = auth0()
-
-const handler = auth0Server.handleAuth({
-  login: auth0Server.handleLogin((req) => {
+const handler = auth0.handleAuth({
+  login: auth0.handleLogin((req) => {
     const loginOptions: CustomLoginOptions = {
       returnTo: defaultReturnTo,
       authorizationParams: {},
@@ -43,7 +41,7 @@ const handler = auth0Server.handleAuth({
     console.log("Login options:", `\n${JSON.stringify(loginOptions, null, 2)}`)
     return loginOptions
   }),
-  logout: auth0Server.handleLogout((req) => {
+  logout: auth0.handleLogout((req) => {
     const logoutOptions: CustomLogoutOptions = {
       returnTo: defaultReturnTo,
       logoutParams: {},
