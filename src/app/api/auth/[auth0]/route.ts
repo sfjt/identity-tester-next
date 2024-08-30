@@ -1,6 +1,6 @@
 import qs from "qs"
 
-import auth0 from "../../../../lib/rwa-config"
+import auth0 from "../../../../lib/auth0"
 
 interface CustomLoginOptions {
   returnTo: string
@@ -18,8 +18,8 @@ interface CustomLogoutOptions {
 
 const defaultReturnTo = `${process.env.AUTH0_BASE_URL}/rwa`
 
-const handler = auth0.handleAuth({
-  login: auth0.handleLogin((req) => {
+const handler = auth0().handleAuth({
+  login: auth0().handleLogin((req) => {
     const loginOptions: CustomLoginOptions = {
       returnTo: defaultReturnTo,
       authorizationParams: {},
@@ -41,7 +41,7 @@ const handler = auth0.handleAuth({
     console.log("Login options:", `\n${JSON.stringify(loginOptions, null, 2)}`)
     return loginOptions
   }),
-  logout: auth0.handleLogout((req) => {
+  logout: auth0().handleLogout((req) => {
     const logoutOptions: CustomLogoutOptions = {
       returnTo: defaultReturnTo,
       logoutParams: {},
