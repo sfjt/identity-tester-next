@@ -84,7 +84,7 @@ export default function RWAPage() {
               </label>
               <div className={state.customParamsEnabled ? "" : styles["custom-params-hidden"]}>
                 <p>
-                  <textarea onChange={parseCustomParams} rows={10} cols={50} id="custom-params">{`{\n  \n}`}</textarea>
+                  <textarea onChange={parseCustomParams} rows={10} cols={50} id="custom-params" defaultValue={`{\n  \n}`}></textarea>
                 </p>
                 {state.customParams ? (
                   <p className={styles["custom-params-valid"]}>{state.customParams}</p>
