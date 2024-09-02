@@ -1,5 +1,5 @@
 import auth0 from "../../lib/auth0"
-import LoginAndOut from "./loginAndOut"
+import LoginAndOut from "./LoginAndOut"
 
 export default async function RWAPage() {
   const session = await auth0.getSession()
