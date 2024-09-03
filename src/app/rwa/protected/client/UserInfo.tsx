@@ -16,12 +16,15 @@ export default withPageAuthRequired(() => {
   }
   if (user) {
     return (
-      <dl>
-        <dt>Sub:</dt>
-        <dd>{user.sub || "N/A"}</dd>
-        <dt>Email:</dt>
-        <dd>{user.email || "N/A"}</dd>
-      </dl>
+      <>
+        <p>Authenticated.</p>
+        <dl>
+          <dt>Sub:</dt>
+          <dd>{user.sub || "N/A"}</dd>
+          <dt>Email:</dt>
+          <dd>{user.email || "N/A"}</dd>
+        </dl>
+      </>
     )
   }
   return <p>N/A</p>

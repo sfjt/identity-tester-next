@@ -17,7 +17,8 @@
     "next": "14.2.6",
     "qs": "^6.13.0",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swr": "^2.2.5"
   },
   "devDependencies": {
     "@types/node": "^20",

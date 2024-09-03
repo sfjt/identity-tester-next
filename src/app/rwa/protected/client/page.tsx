@@ -9,7 +9,6 @@ export default function ProtectedClientComponent() {
       </header>
       <UserProvider>
         <section>
-          <p>Authenticated.</p>
           <UserInfo />
         </section>
       </UserProvider>

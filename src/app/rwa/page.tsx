@@ -1,5 +1,7 @@
 import auth0 from "../../lib/auth0"
 import LoginAndOut from "./LoginAndOut"
+import TestAPIWithSession from "./TestAPIWithSession"
+import TestAPIWithJwt from "./TestAPIWithJwt"
 
 export default async function RWAPage() {
   const session = await auth0.getSession()
@@ -24,31 +26,6 @@ export default async function RWAPage() {
     )
   }
 
-  let apiResponse = <p>N/A</p>
-  if (accessToken) {
-    try {
-      const resp = await fetch(`${process.env.AUTH0_BASE_URL}/api/test/jwt`, {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-      const data = JSON.stringify(await resp.json())
-      apiResponse = (
-        <pre>
-          <code>
-            {resp.status} {data}
-          </code>
-        </pre>
-      )
-    } catch (err) {
-      console.error(err)
-      apiResponse = <p>Something went wrong.</p>
-    }
-  }
-
-  const loginWithAudienceUrl = "/api/auth/login?" + new URLSearchParams({ audience: "https://example.com/api/v1/" })
-
   return (
     <>
       <header>
@@ -64,17 +41,16 @@ export default async function RWAPage() {
             <li>
               <a href="/rwa/protected/client">Protected Client Component</a>
             </li>
-            <li>
-              <a href="/api/test/protected">Protected API (Session)</a>
-            </li>
           </ul>
-          <h4>Response From Protected API (JWT):</h4>
+          <h3>Protected APIs:</h3>
+          <h4>GET /api/test/session</h4>
+          <TestAPIWithSession />
+          <h4>GET /api/test/jwt</h4>
+          <TestAPIWithJwt />
           <p>
-            <code>GET /api/test/jwt</code>
-          </p>
-          {apiResponse}
-          <p>
-            <a href={loginWithAudienceUrl}>Get Access Token</a>
+            <a href={"/api/auth/login?" + new URLSearchParams({ audience: "https://example.com/api/v1/" })}>
+              Get Access Token
+            </a>
           </p>
         </nav>
       </header>
