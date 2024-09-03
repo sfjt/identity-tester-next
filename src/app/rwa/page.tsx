@@ -47,6 +47,8 @@ export default async function RWAPage() {
     }
   }
 
+  const loginWithAudienceUrl = "/api/auth/login?" + (new URLSearchParams({audience: "https://example.com/api/v1/"}))
+
   return (
     <>
       <header>
@@ -67,6 +69,7 @@ export default async function RWAPage() {
             </li>
           </ul>
           <h4>Response From Protected API (JWT):</h4>
+          <a href={loginWithAudienceUrl}>Login to get an access token</a>
           {apiResponse}
         </nav>
       </header>
