@@ -28,8 +28,8 @@ export const GET = async (req: NextRequest) => {
       issuer: process.env.AUTH0_ISSUER_BASE_URL + "/",
       audience: "https://example.com/api/v1/",
     })
-    console.log("payload", payload)
     console.log("protectedHeader", protectedHeader)
+    console.log("payload", payload)
   } catch (err) {
     console.error(err)
     return unauthorizedResponse

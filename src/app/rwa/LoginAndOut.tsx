@@ -85,7 +85,7 @@ export default function LoginAndOut() {
             {state.customParams ? (
               <p className={styles["custom-params-valid"]}>{state.customParams}</p>
             ) : (
-              <p className={styles["custom-params-invalid-or-empty"]}>{"(Invalid or empty JSON)"}</p>
+              <p className={styles["custom-params-invalid-or-empty"]}>(Invalid or empty JSON)</p>
             )}
           </div>
         </div>

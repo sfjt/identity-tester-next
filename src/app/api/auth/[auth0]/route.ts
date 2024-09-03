@@ -1,6 +1,10 @@
 import qs from "qs"
 
 import auth0 from "../../../../lib/auth0"
+import { NextResponse } from "next/server"
+import type { NextRequest } from "next/server"
+import type { NextApiRequest, NextApiResponse } from "next"
+import type { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0"
 
 interface CustomLoginOptions {
   returnTo: string
@@ -63,6 +67,27 @@ const handler = auth0.handleAuth({
     console.log("Logout options:", `\n${JSON.stringify(logoutOptions, null, 2)}`)
     return logoutOptions
   }),
+  callback: async (req: NextRequest | NextApiRequest, res: NextApiResponse | AppRouteHandlerFnContext) => {
+    try {
+      return await auth0.handleCallback(req, res)
+    } catch (err) {
+      if (req.url) {
+        const url = new URL(req.url)
+        const params = qs.parse(url.searchParams.toString())
+        const { error, error_description } = params
+        return NextResponse.json(
+          {
+            message: "Error while handling callback",
+            error,
+            error_description,
+          },
+          {
+            status: 400,
+          },
+        )
+      }
+    }
+  },
 })
 
 export { handler as GET, handler as POST }
