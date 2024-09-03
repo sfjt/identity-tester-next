@@ -71,7 +71,7 @@ export default async function RWAPage() {
           <h4>Response From Protected API (JWT):</h4>
           <p><code>GET /api/test/jwt</code></p>
           {apiResponse}
-          <p><a href={loginWithAudienceUrl}>Get an access token</a></p>
+          <p><a href={loginWithAudienceUrl}>Get Access Token</a></p>
         </nav>
       </header>
       <main>
