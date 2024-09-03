@@ -1,6 +1,6 @@
 import auth0 from "../../../../lib/auth0"
 
-export default auth0.withPageAuthRequired(async function ProtectedPage() {
+export default auth0.withPageAuthRequired(async () => {
   const session = await auth0.getSession()
   let userInfo = <p>N/A</p>
   if (session) {

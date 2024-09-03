@@ -37,6 +37,9 @@ export default async function RWAPage() {
               <a href="/rwa/protected/server">Protected Server Component</a>
             </li>
             <li>
+              <a href="/rwa/protected/server">Protected Client Component</a>
+            </li>
+            <li>
               <a href="/api/test/protected">Protected API</a>
             </li>
           </ul>
