@@ -3,9 +3,9 @@ import LoginAndOut from "./LoginAndOut"
 
 export default async function RWAPage() {
   const session = await auth0.getSession()
-  const accessToken = session?.accessToken || "N/A"
-  const idToken = session?.idToken || "N/A"
-  const refreshToken = session?.refreshToken || "N/A"
+  const accessToken = session?.accessToken
+  const idToken = session?.idToken
+  const refreshToken = session?.refreshToken
 
   let sessionInfo = <p>N/A</p>
 
@@ -14,14 +14,37 @@ export default async function RWAPage() {
       <div>
         <dl>
           <dt>Access token:</dt>
-          <dd>{accessToken}</dd>
+          <dd>{accessToken || "N/A"}</dd>
           <dt>ID token:</dt>
-          <dd>{idToken}</dd>
+          <dd>{idToken || "N/A"}</dd>
           <dt>Refresh token:</dt>
-          <dd>{refreshToken}</dd>
+          <dd>{refreshToken || "N/A"}</dd>
         </dl>
       </div>
     )
+  }
+
+  let apiResponse = <p>N/A</p>
+  if (accessToken) {
+    try {
+      const resp = await fetch(`${process.env.AUTH0_BASE_URL}/api/test/jwt`, {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      const data = JSON.stringify(await resp.json())
+      apiResponse = (
+        <pre>
+          <code>
+            {resp.status} {data}
+          </code>
+        </pre>
+      )
+    } catch (err) {
+      console.error(err)
+      apiResponse = <p>Something went wrong.</p>
+    }
   }
 
   return (
@@ -40,9 +63,11 @@ export default async function RWAPage() {
               <a href="/rwa/protected/client">Protected Client Component</a>
             </li>
             <li>
-              <a href="/api/test/protected">Protected API</a>
+              <a href="/api/test/protected">Protected API (Session)</a>
             </li>
           </ul>
+          <h4>Response From Protected API (JWT):</h4>
+          {apiResponse}
         </nav>
       </header>
       <main>
