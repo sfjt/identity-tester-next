@@ -1,7 +1,7 @@
 import auth0 from "../../lib/auth0"
 import LoginAndOut from "./LoginAndOut"
 import TestAPIWithSession from "./TestAPIWithSession"
-import TestAPIWithJwt from "./TestAPIWithJwt"
+import TestAPIWithJwt from "./TestAPIWithJWT"
 
 export default async function RWAPage() {
   const session = await auth0.getSession()
