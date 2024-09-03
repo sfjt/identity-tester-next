@@ -69,7 +69,7 @@ export default async function RWAPage() {
             </li>
           </ul>
           <h4>Response From Protected API (JWT):</h4>
-          <a href={loginWithAudienceUrl}>Login to get an access token</a>
+          <a href={loginWithAudienceUrl}>Get an access token</a>
           {apiResponse}
         </nav>
       </header>
