@@ -2,36 +2,35 @@ import { GetAccessTokenResult } from "@auth0/nextjs-auth0"
 import auth0 from "../../lib/auth0"
 
 export default async function TestAPIWithJwt() {
-  let accessToken: GetAccessTokenResult | null = null
+  const missingAccessTokenResult = <p>Missing access token.</p>
+  let accessToken = ""
   try {
-    accessToken = await auth0.getAccessToken()
+    const getAccessTokenResult = await auth0.getAccessToken()
+    accessToken = getAccessTokenResult.accessToken || ""
   } catch (err) {
-    return <p>Missing access token</p>
+    console.error(err)
+    return missingAccessTokenResult
   }
 
-  if (!accessToken.accessToken) {
-    return <p>Missing access token</p>
+  if (!accessToken) {
+    return missingAccessTokenResult
   }
 
   try {
     const resp = await fetch(`${process.env.AUTH0_BASE_URL}/api/test/jwt`, {
       method: "GET",
       headers: {
-        Authorization: `Bearer ${accessToken.accessToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     })
     const data = JSON.stringify(await resp.json(), null, 2)
     return (
       <>
         <pre>
-          <code>
-            {resp.status}
-          </code>
+          <code>{resp.status}</code>
         </pre>
         <pre>
-          <code>
-            {data}
-          </code>
+          <code>{data}</code>
         </pre>
       </>
     )

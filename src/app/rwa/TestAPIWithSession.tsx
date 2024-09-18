@@ -22,14 +22,10 @@ export default function TestAPIWithSession() {
   return (
     <>
       <pre>
-        <code>
-          {data.status}
-        </code>
+        <code>{data.status}</code>
       </pre>
       <pre>
-        <code>
-          {data.body}
-        </code>
+        <code>{data.body}</code>
       </pre>
     </>
   )
