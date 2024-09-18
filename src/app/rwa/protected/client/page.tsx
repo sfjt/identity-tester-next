@@ -3,15 +3,11 @@ import UserInfo from "./UserInfo"
 
 export default function ProtectedClientComponent() {
   return (
-    <>
-      <header>
+    <UserProvider>
+      <main>
         <h2>Regular Web Application - Protected Client Component</h2>
-      </header>
-      <UserProvider>
-        <section>
-          <UserInfo />
-        </section>
-      </UserProvider>
-    </>
+        <UserInfo />
+      </main>
+    </UserProvider>
   )
 }

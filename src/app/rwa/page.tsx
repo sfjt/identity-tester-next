@@ -27,8 +27,8 @@ export default async function RWAPage() {
   }
 
   return (
-    <>
-      <header>
+    <main>
+      <section>
         <h2>Regular Web Application</h2>
         <nav>
           <h3>Login and logout</h3>
@@ -53,13 +53,11 @@ export default async function RWAPage() {
             </a>
           </p>
         </nav>
-      </header>
-      <main>
-        <section>
-          <h3>Session Details</h3>
-          {sessionInfo}
-        </section>
-      </main>
-    </>
+      </section>
+      <section>
+        <h3>Session Details</h3>
+        {sessionInfo}
+      </section>
+    </main>
   )
 }

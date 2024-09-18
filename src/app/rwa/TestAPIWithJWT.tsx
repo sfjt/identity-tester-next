@@ -6,11 +6,11 @@ export default async function TestAPIWithJwt() {
   try {
     accessToken = await auth0.getAccessToken()
   } catch (err) {
-    return <p>N/A</p>
+    return <p>Missing access token</p>
   }
 
   if (!accessToken.accessToken) {
-    return <p>N/A</p>
+    return <p>Missing access token</p>
   }
 
   try {
@@ -20,12 +20,17 @@ export default async function TestAPIWithJwt() {
         Authorization: `Bearer ${accessToken.accessToken}`,
       },
     })
-    const data = JSON.stringify(await resp.json())
+    const data = JSON.stringify(await resp.json(), null, 2)
     return (
       <>
         <pre>
           <code>
-            {resp.status} {data}
+            {resp.status}
+          </code>
+        </pre>
+        <pre>
+          <code>
+            {data}
           </code>
         </pre>
       </>

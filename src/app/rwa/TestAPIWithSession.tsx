@@ -6,7 +6,7 @@ const fetcher = async (uri: string) => {
   const response = await fetch(uri)
   return {
     status: response.status,
-    body: JSON.stringify(await response.json()),
+    body: JSON.stringify(await response.json(), null, 2),
   }
 }
 
@@ -20,10 +20,17 @@ export default function TestAPIWithSession() {
   }
 
   return (
-    <pre>
-      <code>
-        {data.status} {data.body}
-      </code>
-    </pre>
+    <>
+      <pre>
+        <code>
+          {data.status}
+        </code>
+      </pre>
+      <pre>
+        <code>
+          {data.body}
+        </code>
+      </pre>
+    </>
   )
 }

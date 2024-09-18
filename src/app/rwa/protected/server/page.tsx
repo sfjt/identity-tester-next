@@ -17,14 +17,10 @@ export default auth0.withPageAuthRequired(async () => {
   }
 
   return (
-    <>
-      <header>
-        <h2>Regular Web Application - Protected Server Component</h2>
-      </header>
-      <section>
-        <p>Authenticated.</p>
-        {userInfo}
-      </section>
-    </>
+    <main>
+      <h2>Regular Web Application - Protected Server Component</h2>
+      <p>Authenticated.</p>
+      {userInfo}
+    </main>
   )
 })
