@@ -1,12 +1,13 @@
 "use client"
 
+import axios from "axios"
 import useSWR from "swr"
 
 const fetcher = async (uri: string) => {
-  const response = await fetch(uri)
+  const res = await axios.get(uri)
   return {
-    status: response.status,
-    body: JSON.stringify(await response.json(), null, 2),
+    status: res.status,
+    body: res.data,
   }
 }
 
@@ -25,7 +26,7 @@ export default function TestAPIWithSession() {
         <code>{data.status}</code>
       </pre>
       <pre>
-        <code>{data.body}</code>
+        <code>{JSON.stringify(data.body, null, 2)}</code>
       </pre>
     </>
   )
