@@ -3,11 +3,8 @@ import { NextRequest, NextResponse } from "next/server"
 import auth0 from "../../../../../lib/auth0"
 import axios from "axios"
 
-export async function DELETE(
-  req: NextRequest,
-  { params }: { params: { id: string } },
-) {
-  if(!process.env.MFA_API_AUDIENCE) {
+export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+  if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
         message: "Internal Server Error",
@@ -15,7 +12,7 @@ export async function DELETE(
       {
         status: 500,
       },
-    ) 
+    )
   }
   const unauthorizedResult = NextResponse.json(
     {
@@ -44,21 +41,18 @@ export async function DELETE(
     },
   })
 
-  if(resp.status === 204) {
-    return new Response(
-      null,
-      {
-        status: resp.status
-      }
-    )
+  if (resp.status === 204) {
+    return new Response(null, {
+      status: resp.status,
+    })
   }
 
   return NextResponse.json(
     {
-      data: resp.data
+      data: resp.data,
     },
     {
-      status: resp.status
-    }
+      status: resp.status,
+    },
   )
 }

@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server"
 import auth0 from "../../../lib/auth0"
 
 export const GET = async (req: NextRequest) => {
-  if(!process.env.MFA_API_AUDIENCE) {
+  if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
         message: "Internal Server Error",
@@ -12,7 +12,7 @@ export const GET = async (req: NextRequest) => {
       {
         status: 500,
       },
-    ) 
+    )
   }
   const unauthorizedResult = NextResponse.json(
     {

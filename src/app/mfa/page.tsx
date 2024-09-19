@@ -15,12 +15,12 @@ async function fetcher(uri: string) {
 }
 
 export default function MFAPage() {
-  const {data, error, isLoading, mutate} = useSWR("/api/mfa", fetcher)
+  const { data, error, isLoading, mutate } = useSWR("/api/mfa", fetcher)
 
   function deleteEventHandlerFactory(id: string) {
     return async () => {
       const res = await axios.delete(`/api/mfa/delete/${id}`)
-      if(res.status === 204) {
+      if (res.status === 204) {
         mutate()
         return
       }
@@ -28,7 +28,7 @@ export default function MFAPage() {
     }
   }
 
-  if(error?.response) {
+  if (error?.response) {
     return (
       <pre>
         <code>
@@ -45,33 +45,32 @@ export default function MFAPage() {
   }
 
   let authenticatorsList: React.JSX.Element[] = []
-  if(Array.isArray(data.authenticators)) {
+  if (Array.isArray(data.authenticators)) {
     authenticatorsList = data.authenticators.map((a, i) => {
       const key = `${i}-${a.id}`
-      if(!a.id) {
+      if (!a.id) {
         return <></>
       }
       return (
         <React.Fragment key={key}>
           <dt>
-            {a.id} <button className={styles["authenticator-delete-button"]} onClick={deleteEventHandlerFactory(a.id)}>DELETE</button>
+            {a.id}{" "}
+            <button className={styles["authenticator-delete-button"]} onClick={deleteEventHandlerFactory(a.id)}>
+              DELETE
+            </button>
           </dt>
           <dd>authenticator_type: {a.authenticator_type}</dd>
-          {a.oob_channel &&
-            <dd>oob_channel: {a.oob_channel}</dd>
-          }
+          {a.oob_channel && <dd>oob_channel: {a.oob_channel}</dd>}
           <dd>active: {a.active ? "True" : "False"}</dd>
         </React.Fragment>
       )
     })
   }
 
-  return(
+  return (
     <section>
       <h3>Authenticators</h3>
-      <dl>
-        {authenticatorsList}
-      </dl>
+      <dl>{authenticatorsList}</dl>
     </section>
   )
 }
