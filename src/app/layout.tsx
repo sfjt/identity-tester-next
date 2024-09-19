@@ -7,6 +7,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const mfaAPITesterLoginParams = new URLSearchParams({
+    returnTo: `${process.env.AUTH0_BASE_URL}/mfa`,
+    audience: process.env.MFA_API_AUDIENCE || "",
+    scope: "openid profile email enroll read:authenticators remove:authenticators",
+  })
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -19,6 +24,9 @@ export default function RootLayout({
               </li>
               <li>
                 <a href="/rwa">Regular Web Application</a>
+              </li>
+              <li>
+                <a href={"/api/auth/login?" + mfaAPITesterLoginParams}>MFA API Tester</a>
               </li>
             </ul>
           </nav>

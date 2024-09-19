@@ -3,7 +3,7 @@
 import axios from "axios"
 import useSWR from "swr"
 
-const fetcher = async (uri: string) => {
+async function fetcher(uri: string) {
   const res = await axios.get(uri)
   return {
     status: res.status,
@@ -12,12 +12,15 @@ const fetcher = async (uri: string) => {
 }
 
 export default function TestAPIWithSession() {
-  const { data, error } = useSWR("/api/test/session", fetcher)
+  const { data, error, isLoading } = useSWR("/api/test/session", fetcher)
   if (error) {
     return <p>Something went wrong.</p>
   }
-  if (data === undefined) {
+  if (isLoading) {
     return <p>Loading...</p>
+  }
+  if (!data) {
+    return <p>Missing response data.</p>
   }
 
   return (
