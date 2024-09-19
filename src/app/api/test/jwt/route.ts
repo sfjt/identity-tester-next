@@ -2,21 +2,21 @@ import { NextRequest, NextResponse } from "next/server"
 import { createRemoteJWKSet, jwtVerify } from "jose"
 
 export const GET = async (req: NextRequest) => {
-  const unauthorizedResponse = NextResponse.json(
+  const forbiddenResponse = NextResponse.json(
     {
-      message: "Unauthorized",
+      message: "Forbidden",
     },
     {
-      status: 401,
+      status: 403,
     },
   )
 
   const authorization = req.headers.get("authorization")
   if (!authorization) {
-    return unauthorizedResponse
+    return forbiddenResponse
   }
   if (!authorization.startsWith("Bearer ")) {
-    return unauthorizedResponse
+    return forbiddenResponse
   }
 
   const bearerToken = authorization.split(" ")[1]
@@ -24,15 +24,20 @@ export const GET = async (req: NextRequest) => {
   const JWKS = createRemoteJWKSet(url)
 
   try {
-    const { payload, protectedHeader } = await jwtVerify(bearerToken, JWKS, {
+    await jwtVerify(bearerToken, JWKS, {
       issuer: process.env.AUTH0_ISSUER_BASE_URL + "/",
       audience: "https://example.com/api/v1/",
     })
-    console.log("protectedHeader", protectedHeader)
-    console.log("payload", payload)
   } catch (err) {
     console.error(err)
-    return unauthorizedResponse
+    return NextResponse.json(
+      {
+        message: "Unauthorized",
+      },
+      {
+        status: 401,
+      },
+    )
   }
 
   return NextResponse.json(
