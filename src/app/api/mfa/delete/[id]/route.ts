@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 
 import auth0 from "../../../../../lib/auth0"
-import axios from "axios"
 
 export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
   if (!process.env.MFA_API_AUDIENCE) {
@@ -35,24 +34,27 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     return unauthorizedResult
   }
 
-  const resp = await axios.delete(`${process.env.MFA_API_AUDIENCE}authenticators/${params.id}`, {
+  const res = await fetch(`${process.env.MFA_API_AUDIENCE}authenticators/${params.id}`, {
+    method: "delete",
     headers: {
       Authorization: `Bearer ${accessToken}`,
     },
   })
 
-  if (resp.status === 204) {
+  if (res.status === 204) {
     return new Response(null, {
-      status: resp.status,
+      status: res.status,
     })
   }
 
+  const body = res.json()
+
   return NextResponse.json(
     {
-      data: resp.data,
+      body
     },
     {
-      status: resp.status,
+      status: res.status,
     },
   )
 }

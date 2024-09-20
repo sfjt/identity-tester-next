@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import auth0 from "../../../lib/auth0"
+import auth0 from "../../../../lib/auth0"
 
-export const GET = async (req: NextRequest) => {
+export async function POST(req: NextRequest) {
   if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
@@ -34,12 +34,17 @@ export const GET = async (req: NextRequest) => {
     return unauthorizedResult
   }
 
-  const res = await fetch(`${process.env.MFA_API_AUDIENCE}authenticators`, {
+  const authenticator_types = (await req.json()).authenticator_types
+  const res = await fetch(`${process.env.MFA_API_AUDIENCE}associate`, {
+    method: "post",
     headers: {
       Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
     },
+    body: JSON.stringify({
+      authenticator_types,
+    }),
   })
-
   const body = await res.json()
 
   return NextResponse.json(

@@ -1,41 +1,33 @@
 "use client"
 
 import React from "react"
-import axios from "axios"
 import useSWR from "swr"
 
 import styles from "../mfa/mfa.module.css"
 
-async function fetcher(uri: string) {
-  const res = await axios.get(uri)
+async function fetchAuthenticators(uri: string) {
+  const res = await fetch(uri)
+  const { body } = await res.json()
   return {
     status: res.status,
-    authenticators: res.data.data,
+    body,
   }
 }
 
 export default function MFAPage() {
-  const { data, error, isLoading, mutate } = useSWR("/api/mfa", fetcher)
+  const { data, error, isLoading, mutate } = useSWR("/api/mfa", fetchAuthenticators)
 
   function deleteEventHandlerFactory(id: string) {
     return async () => {
-      const res = await axios.delete(`/api/mfa/delete/${id}`)
+      const res = await fetch(`/api/mfa/delete/${id}`, {
+        method: "delete",
+      })
       if (res.status === 204) {
         mutate()
         return
       }
-      console.error("Error while deleting authenticatior", res)
+      console.error("Could not delete authenticator", res)
     }
-  }
-
-  if (error?.response) {
-    return (
-      <pre>
-        <code>
-          {error.response?.status} {error.response?.data?.message}
-        </code>
-      </pre>
-    )
   }
   if (error) {
     return <p>Something went wrong.</p>
@@ -43,10 +35,10 @@ export default function MFAPage() {
   if (isLoading || !data) {
     return <p>Loading...</p>
   }
-
+  console.log(data.body)
   let authenticatorsList: React.JSX.Element[] = []
-  if (Array.isArray(data.authenticators)) {
-    authenticatorsList = data.authenticators.map((a, i) => {
+  if (Array.isArray(data.body)) {
+    authenticatorsList = data.body.map((a, i) => {
       const key = `${i}-${a.id}`
       if (!a.id) {
         return <></>
@@ -68,9 +60,19 @@ export default function MFAPage() {
   }
 
   return (
-    <section>
-      <h3>Authenticators</h3>
-      <dl>{authenticatorsList}</dl>
-    </section>
+    <>
+      <section>
+        <h3>Enroll</h3>
+        <ul>
+          <li>
+            <a href="/mfa/enroll/otp">OTP</a>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3>Authenticators</h3>
+        <dl>{authenticatorsList}</dl>
+      </section>
+    </>
   )
 }
