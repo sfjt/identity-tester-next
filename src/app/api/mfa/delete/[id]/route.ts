@@ -51,7 +51,7 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
 
   return NextResponse.json(
     {
-      body
+      body,
     },
     {
       status: res.status,
