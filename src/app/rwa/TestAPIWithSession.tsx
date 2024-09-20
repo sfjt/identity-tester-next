@@ -1,36 +1,29 @@
 "use client"
 
-import axios from "axios"
-import useSWR from "swr"
+import useSWRImmutable from "swr/immutable"
 
-async function fetcher(uri: string) {
-  const res = await axios.get(uri)
+async function fetchSession(uri: string) {
+  const res = await fetch(uri)
   return {
     status: res.status,
-    body: res.data,
+    statusText: res.statusText,
   }
 }
 
 export default function TestAPIWithSession() {
-  const { data, error, isLoading } = useSWR("/api/test/session", fetcher)
+  const { data, error, isLoading } = useSWRImmutable("/api/test/session", fetchSession)
   if (error) {
     return <p>Something went wrong.</p>
   }
-  if (isLoading) {
+  if (isLoading || !data) {
     return <p>Loading...</p>
-  }
-  if (!data) {
-    return <p>Missing response data.</p>
   }
 
   return (
-    <>
-      <pre>
-        <code>{data.status}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(data.body, null, 2)}</code>
-      </pre>
-    </>
+    <p>
+      <code>
+        {data.status} {data.statusText}
+      </code>
+    </p>
   )
 }

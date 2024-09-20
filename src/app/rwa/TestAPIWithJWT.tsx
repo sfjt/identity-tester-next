@@ -1,5 +1,3 @@
-import axios from "axios"
-
 import auth0 from "../../lib/auth0"
 
 export default async function TestAPIWithJwt() {
@@ -18,20 +16,17 @@ export default async function TestAPIWithJwt() {
   }
 
   try {
-    const resp = await axios.get(`${process.env.AUTH0_BASE_URL}/api/test/jwt`, {
+    const res = await fetch(`${process.env.AUTH0_BASE_URL}/api/test/jwt`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     })
     return (
-      <>
-        <pre>
-          <code>{resp.status}</code>
-        </pre>
-        <pre>
-          <code>{JSON.stringify(resp.data, null, 2)}</code>
-        </pre>
-      </>
+      <p>
+        <code>
+          {res.status} {res.statusText}
+        </code>
+      </p>
     )
   } catch (err) {
     return <p>Something went wrong.</p>
