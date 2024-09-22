@@ -43,9 +43,7 @@ export const GET = auth0.withApiAuthRequired(async (req: NextRequest) => {
   const body = await res.json()
 
   return NextResponse.json(
-    {
-      body,
-    },
+    body,
     {
       status: res.status,
     },

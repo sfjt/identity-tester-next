@@ -3,7 +3,7 @@ import LoginAndOut from "./LoginAndOut"
 import TestAPIWithSession from "./TestAPIWithSession"
 import TestAPIWithJwt from "./TestAPIWithJWT"
 
-export default async function RWAPage() {
+export default async function Page() {
   const session = await auth0.getSession()
   const accessToken = session?.accessToken
   const idToken = session?.idToken

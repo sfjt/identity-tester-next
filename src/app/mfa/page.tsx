@@ -7,14 +7,14 @@ import styles from "../mfa/mfa.module.css"
 
 async function fetchAuthenticators(uri: string) {
   const res = await fetch(uri)
-  const { body } = await res.json()
+  const body  = await res.json()
   return {
     status: res.status,
     body,
   }
 }
 
-export default function MFAPage() {
+export default function Page() {
   const { data, error, isLoading, mutate } = useSWR("/api/mfa", fetchAuthenticators)
 
   function deleteEventHandlerFactory(id: string) {
@@ -26,7 +26,7 @@ export default function MFAPage() {
         mutate()
         return
       }
-      console.error("Could not delete authenticator", res)
+      console.error("Unable to delete authenticator", res)
     }
   }
   if (error) {
@@ -35,28 +35,45 @@ export default function MFAPage() {
   if (isLoading || !data) {
     return <p>Loading...</p>
   }
-  console.log(data.body)
-  let authenticatorsList: React.JSX.Element[] = []
-  if (Array.isArray(data.body)) {
-    authenticatorsList = data.body.map((a, i) => {
-      const key = `${i}-${a.id}`
-      if (!a.id) {
-        return <></>
-      }
-      return (
-        <React.Fragment key={key}>
-          <dt>
-            {a.id}{" "}
-            <button className={styles["authenticator-delete-button"]} onClick={deleteEventHandlerFactory(a.id)}>
-              DELETE
-            </button>
-          </dt>
-          <dd>authenticator_type: {a.authenticator_type}</dd>
-          {a.oob_channel && <dd>oob_channel: {a.oob_channel}</dd>}
-          <dd>active: {a.active ? "True" : "False"}</dd>
-        </React.Fragment>
-      )
-    })
+
+  let authenticatorsList = (
+    <>
+      <p>
+        <code>
+          {data.status}
+        </code>
+      </p>
+      <pre>
+        <code>
+          {JSON.stringify(data.body, null, 2)}
+        </code>
+      </pre>
+    </>
+  )
+  if (data.status === 200 && Array.isArray(data.body)) {
+    authenticatorsList = (
+      <dl>
+        {data.body.map((a, i) => {
+          const key = `${i}-${a.id}`
+          if (!a.id) {
+            return <></>
+          }
+          return (
+            <React.Fragment key={key}>
+              <dt>
+                {a.id}{" "}
+                <button className={styles["authenticator-delete-button"]} onClick={deleteEventHandlerFactory(a.id)}>
+                  DELETE
+                </button>
+              </dt>
+              <dd>authenticator_type: {a.authenticator_type}</dd>
+              {a.oob_channel && <dd>oob_channel: {a.oob_channel}</dd>}
+              <dd>active: {a.active ? "True" : "False"}</dd>
+            </React.Fragment>
+          )
+        })}
+      </dl>
+    )
   }
 
   return (
@@ -71,7 +88,7 @@ export default function MFAPage() {
       </section>
       <section>
         <h3>Authenticators</h3>
-        <dl>{authenticatorsList}</dl>
+        {authenticatorsList}
       </section>
     </>
   )

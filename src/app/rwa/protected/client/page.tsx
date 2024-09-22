@@ -1,7 +1,7 @@
 import { UserProvider } from "@auth0/nextjs-auth0/client"
 import UserInfo from "./UserInfo"
 
-export default function ProtectedClientComponent() {
+export default function Page() {
   return (
     <UserProvider>
       <main>

@@ -16,7 +16,7 @@ export default function VerifyAPIResponse() {
         otp,
       }),
     })
-    if(res.status === 200) {
+    if (res.status === 200) {
       window.location.href = "/mfa"
       return
     }

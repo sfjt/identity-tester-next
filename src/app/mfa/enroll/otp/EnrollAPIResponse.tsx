@@ -9,7 +9,7 @@ async function enroll(uri: string) {
       authenticator_types: ["otp"],
     }),
   })
-  const { body } = await res.json()
+  const body = await res.json()
   return {
     status: res.status,
     body,

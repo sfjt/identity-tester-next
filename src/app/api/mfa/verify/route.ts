@@ -50,9 +50,7 @@ export async function POST(req: NextRequest) {
   const body = await res.json()
 
   return NextResponse.json(
-    {
-      body,
-    },
+    body,
     {
       status: res.status,
     },
