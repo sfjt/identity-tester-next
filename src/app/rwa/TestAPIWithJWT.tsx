@@ -25,14 +25,10 @@ export default async function TestAPIWithJwt() {
     return (
       <>
         <p>
-          <code>
-            {res.status}
-          </code>
+          <code>{res.status}</code>
         </p>
         <pre>
-          <code>
-            {JSON.stringify(body, null, 2)}
-          </code>
+          <code>{JSON.stringify(body, null, 2)}</code>
         </pre>
       </>
     )

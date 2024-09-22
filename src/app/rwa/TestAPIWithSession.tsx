@@ -7,7 +7,7 @@ async function fetchSession(uri: string) {
   const body = await res.json()
   return {
     status: res.status,
-    body
+    body,
   }
 }
 
@@ -23,14 +23,10 @@ export default function TestAPIWithSession() {
   return (
     <>
       <p>
-        <code>
-          {data.status}
-        </code>
+        <code>{data.status}</code>
       </p>
       <pre>
-        <code>
-          {JSON.stringify(data.body, null, 2)}
-        </code>
+        <code>{JSON.stringify(data.body, null, 2)}</code>
       </pre>
     </>
   )

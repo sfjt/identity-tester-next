@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import auth0 from "../../../../../lib/auth0"
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export const DELETE = auth0.withApiAuthRequired(async (req: NextRequest, ctx) => {
   if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
@@ -34,7 +34,19 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
     return unauthorizedResult
   }
 
-  const res = await fetch(`${process.env.MFA_API_AUDIENCE}authenticators/${params.id}`, {
+  const authenticatorId = ctx.params?.id
+  if (typeof authenticatorId !== "string") {
+    return NextResponse.json(
+      {
+        message: "Bad Request",
+      },
+      {
+        status: 400,
+      },
+    )
+  }
+
+  const res = await fetch(`${process.env.MFA_API_AUDIENCE}authenticators/${authenticatorId}`, {
     method: "delete",
     headers: {
       Authorization: `Bearer ${accessToken}`,
@@ -57,4 +69,4 @@ export async function DELETE(req: NextRequest, { params }: { params: { id: strin
       status: res.status,
     },
   )
-}
+})

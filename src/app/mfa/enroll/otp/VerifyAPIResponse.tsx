@@ -16,6 +16,10 @@ export default function VerifyAPIResponse() {
         otp,
       }),
     })
+    if(res.status === 200) {
+      window.location.href = "/mfa"
+      return
+    }
     setState({
       status: res.status,
       statusText: res.statusText,

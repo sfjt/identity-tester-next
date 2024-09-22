@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server"
 
 import auth0 from "../../../../lib/auth0"
 
-export async function POST(req: NextRequest) {
+export const POST = auth0.withApiAuthRequired(async (req: NextRequest) => {
   if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
@@ -55,4 +55,4 @@ export async function POST(req: NextRequest) {
       status: res.status,
     },
   )
-}
+})
