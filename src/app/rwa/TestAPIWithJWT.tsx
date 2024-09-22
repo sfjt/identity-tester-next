@@ -21,12 +21,20 @@ export default async function TestAPIWithJwt() {
         Authorization: `Bearer ${accessToken}`,
       },
     })
+    const body = await res.json()
     return (
-      <p>
-        <code>
-          {res.status} {res.statusText}
-        </code>
-      </p>
+      <>
+        <p>
+          <code>
+            {res.status}
+          </code>
+        </p>
+        <pre>
+          <code>
+            {JSON.stringify(body, null, 2)}
+          </code>
+        </pre>
+      </>
     )
   } catch (err) {
     return <p>Something went wrong.</p>
