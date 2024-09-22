@@ -47,10 +47,7 @@ export const POST = auth0.withApiAuthRequired(async (req: NextRequest) => {
   })
   const body = await res.json()
 
-  return NextResponse.json(
-    body,
-    {
-      status: res.status,
-    },
-  )
+  return NextResponse.json(body, {
+    status: res.status,
+  })
 })

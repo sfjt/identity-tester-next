@@ -7,7 +7,7 @@ import styles from "../mfa/mfa.module.css"
 
 async function fetchAuthenticators(uri: string) {
   const res = await fetch(uri)
-  const body  = await res.json()
+  const body = await res.json()
   return {
     status: res.status,
     body,
@@ -39,14 +39,10 @@ export default function Page() {
   let authenticatorsList = (
     <>
       <p>
-        <code>
-          {data.status}
-        </code>
+        <code>{data.status}</code>
       </p>
       <pre>
-        <code>
-          {JSON.stringify(data.body, null, 2)}
-        </code>
+        <code>{JSON.stringify(data.body, null, 2)}</code>
       </pre>
     </>
   )

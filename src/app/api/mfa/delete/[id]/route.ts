@@ -61,10 +61,7 @@ export const DELETE = auth0.withApiAuthRequired(async (req: NextRequest, ctx) =>
 
   const body = res.json()
 
-  return NextResponse.json(
-    body,
-    {
-      status: res.status,
-    },
-  )
+  return NextResponse.json(body, {
+    status: res.status,
+  })
 })

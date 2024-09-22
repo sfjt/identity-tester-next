@@ -49,10 +49,7 @@ export async function POST(req: NextRequest) {
 
   const body = await res.json()
 
-  return NextResponse.json(
-    body,
-    {
-      status: res.status,
-    },
-  )
+  return NextResponse.json(body, {
+    status: res.status,
+  })
 }
