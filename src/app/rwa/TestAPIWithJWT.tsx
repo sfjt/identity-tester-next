@@ -1,10 +1,10 @@
-import auth0 from "../../lib/auth0"
+import auth0 from "@/lib/auth0"
 
 export default async function TestAPIWithJwt() {
   const missingAccessTokenResult = <p>Missing access token.</p>
   let accessToken = ""
   try {
-    const getAccessTokenResult = await auth0.getAccessToken()
+    const getAccessTokenResult = await auth0().getAccessToken()
     accessToken = getAccessTokenResult.accessToken || ""
   } catch (err) {
     console.error(err)

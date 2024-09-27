@@ -1,10 +1,10 @@
 import qs from "qs"
-
-import auth0 from "../../../../lib/auth0"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import type { NextApiRequest, NextApiResponse } from "next"
 import type { AppRouteHandlerFnContext } from "@auth0/nextjs-auth0"
+
+import auth0 from "@/lib/auth0"
 
 interface CustomLoginOptions {
   returnTo: string
@@ -22,8 +22,8 @@ interface CustomLogoutOptions {
 
 const defaultReturnTo = `${process.env.AUTH0_BASE_URL}/rwa`
 
-const handler = auth0.handleAuth({
-  login: auth0.handleLogin((req) => {
+const handler = auth0().handleAuth({
+  login: auth0().handleLogin((req) => {
     const loginOptions: CustomLoginOptions = {
       returnTo: defaultReturnTo,
       authorizationParams: {},
@@ -45,7 +45,7 @@ const handler = auth0.handleAuth({
     console.log("Login options:", `\n${JSON.stringify(loginOptions, null, 2)}`)
     return loginOptions
   }),
-  logout: auth0.handleLogout((req) => {
+  logout: auth0().handleLogout((req) => {
     const logoutOptions: CustomLogoutOptions = {
       returnTo: defaultReturnTo,
       logoutParams: {},
@@ -69,7 +69,7 @@ const handler = auth0.handleAuth({
   }),
   callback: async (req: NextRequest | NextApiRequest, res: NextApiResponse | AppRouteHandlerFnContext) => {
     try {
-      return await auth0.handleCallback(req, res)
+      return await auth0().handleCallback(req, res)
     } catch (err) {
       if (req.url) {
         const url = new URL(req.url)

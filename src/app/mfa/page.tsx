@@ -3,7 +3,7 @@
 import React from "react"
 import useSWR from "swr"
 
-import styles from "../mfa/mfa.module.css"
+import styles from "./mfa.module.css"
 
 async function fetchAuthenticators(uri: string) {
   const res = await fetch(uri)

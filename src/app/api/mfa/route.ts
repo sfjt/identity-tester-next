@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server"
 
-import auth0 from "../../../lib/auth0"
+import auth0 from "@/lib/auth0"
 
-export const GET = auth0.withApiAuthRequired(async (req: NextRequest) => {
+export const GET = auth0().withApiAuthRequired(async (req: NextRequest) => {
   if (!process.env.MFA_API_AUDIENCE) {
     NextResponse.json(
       {
@@ -13,6 +13,7 @@ export const GET = auth0.withApiAuthRequired(async (req: NextRequest) => {
       },
     )
   }
+
   const unauthorizedResult = NextResponse.json(
     {
       message: "Unauthorized",
@@ -21,9 +22,10 @@ export const GET = auth0.withApiAuthRequired(async (req: NextRequest) => {
       status: 401,
     },
   )
+
   let accessToken = ""
   try {
-    const getAccessTokenResult = await auth0.getAccessToken()
+    const getAccessTokenResult = await auth0().getAccessToken()
     accessToken = getAccessTokenResult.accessToken || ""
   } catch (err) {
     console.error(err)

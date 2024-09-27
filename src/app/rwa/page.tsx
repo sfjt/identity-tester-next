@@ -1,10 +1,10 @@
-import auth0 from "../../lib/auth0"
+import auth0 from "@/lib/auth0"
 import LoginAndOut from "./LoginAndOut"
 import TestAPIWithSession from "./TestAPIWithSession"
 import TestAPIWithJwt from "./TestAPIWithJWT"
 
 export default async function Page() {
-  const session = await auth0.getSession()
+  const session = await auth0().getSession()
   const accessToken = session?.accessToken
   const idToken = session?.idToken
   const refreshToken = session?.refreshToken

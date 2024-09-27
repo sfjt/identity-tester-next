@@ -1,7 +1,7 @@
-import auth0 from "../../../../lib/auth0"
+import auth0 from "@/lib/auth0"
 
-export default auth0.withPageAuthRequired(async () => {
-  const session = await auth0.getSession()
+export default auth0().withPageAuthRequired(async () => {
+  const session = await auth0().getSession()
   let userInfo = <p>N/A</p>
   if (session) {
     const { user } = session

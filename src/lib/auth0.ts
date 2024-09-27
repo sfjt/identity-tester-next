@@ -1,5 +1,5 @@
 import { initAuth0 } from "@auth0/nextjs-auth0"
-import type { SessionStorePayload, SessionStore, ConfigParameters } from "@auth0/nextjs-auth0"
+import type { SessionStorePayload, SessionStore, ConfigParameters, Auth0Server } from "@auth0/nextjs-auth0"
 import { Redis } from "@upstash/redis"
 
 class Store implements SessionStore {
@@ -26,4 +26,12 @@ const config: ConfigParameters = {
   backchannelLogout: true,
 }
 
-export default initAuth0(config)
+let _server: Omit<Auth0Server, 'withMiddlewareAuthRequired'> | undefined = undefined
+
+export default function auth0() {
+  if(!_server) {
+    console.log("No cache found. Creating server instance")
+    _server = initAuth0(config)
+  }
+  return _server
+}
