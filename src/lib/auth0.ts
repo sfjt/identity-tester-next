@@ -26,11 +26,10 @@ const config: ConfigParameters = {
   backchannelLogout: true,
 }
 
-let _server: Omit<Auth0Server, 'withMiddlewareAuthRequired'> | undefined = undefined
+let _server: Omit<Auth0Server, "withMiddlewareAuthRequired"> | undefined = undefined
 
 export default function auth0() {
-  if(!_server) {
-    console.log("No cache found. Creating server instance")
+  if (!_server) {
     _server = initAuth0(config)
   }
   return _server
