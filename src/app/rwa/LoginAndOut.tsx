@@ -2,6 +2,7 @@
 
 import { ChangeEvent, useState } from "react"
 
+import "@/app/global.css"
 import styles from "./rwa.module.css"
 
 export default function LoginAndOut() {
@@ -56,16 +57,12 @@ export default function LoginAndOut() {
   }
 
   return (
-    <ul>
+    <ul className="login-logout-list">
       <li>
-        <p>
           <button onClick={login}>Login</button>
-        </p>
       </li>
       <li>
-        <p>
           <button onClick={logout}>Logout</button>
-        </p>
       </li>
       <li>
         <div>

@@ -28,31 +28,33 @@ export default async function Page() {
 
   return (
     <main>
+      <h2>Regular Web Application</h2>
       <section>
-        <h2>Regular Web Application</h2>
-        <nav>
-          <h3>Login and logout</h3>
-          <LoginAndOut />
-          <h3>Protected Routes</h3>
-          <ul>
-            <li>
-              <a href="/rwa/protected/server">Protected Server Component</a>
-            </li>
-            <li>
-              <a href="/rwa/protected/client">Protected Client Component</a>
-            </li>
-          </ul>
-          <h3>Protected APIs:</h3>
-          <h4>GET /api/test/session</h4>
-          <TestAPIWithSession />
-          <h4>GET /api/test/jwt</h4>
-          <TestAPIWithJwt />
-          <p>
-            <a href={"/api/auth/login?" + new URLSearchParams({ audience: "https://example.com/api/v1/" })}>
-              Get Access Token
-            </a>
-          </p>
-        </nav>
+        <h3>Login and logout</h3>
+        <LoginAndOut />
+      </section>
+      <section>
+        <h3>Protected Routes</h3>
+        <ul>
+          <li>
+            <a href="/rwa/protected/server">Protected Server Component</a>
+          </li>
+          <li>
+            <a href="/rwa/protected/client">Protected Client Component</a>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h3>Protected APIs:</h3>
+        <h4>GET /api/test/session</h4>
+        <TestAPIWithSession />
+        <h4>GET /api/test/jwt</h4>
+        <TestAPIWithJwt />
+        <p>
+          <a href={"/api/auth/login?" + new URLSearchParams({ audience: "https://example.com/api/v1/" })}>
+            Get Access Token
+          </a>
+        </p>
       </section>
       <section>
         <h3>Session Details</h3>
