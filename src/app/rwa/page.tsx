@@ -45,7 +45,7 @@ export default async function Page() {
         </ul>
       </section>
       <section>
-        <h3>Protected APIs:</h3>
+        <h3>Protected APIs</h3>
         <h4>GET /api/test/session</h4>
         <TestAPIWithSession />
         <h4>GET /api/test/jwt</h4>
