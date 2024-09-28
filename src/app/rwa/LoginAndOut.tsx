@@ -59,10 +59,10 @@ export default function LoginAndOut() {
   return (
     <ul className="login-logout-list">
       <li>
-          <button onClick={login}>Login</button>
+        <button onClick={login}>Login</button>
       </li>
       <li>
-          <button onClick={logout}>Logout</button>
+        <button onClick={logout}>Logout</button>
       </li>
       <li>
         <div>
