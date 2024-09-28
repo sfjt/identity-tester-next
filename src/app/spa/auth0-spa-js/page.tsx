@@ -39,7 +39,9 @@ async function createClient(uri: string) {
   let accessToken: string | undefined = undefined
   try {
     console.log("SWR: executing getTokenSilently...")
-    accessToken = await client.getTokenSilently()
+    accessToken = await client.getTokenSilently({
+      timeoutInSeconds: 10
+    })
   } catch (err) {
     console.log(err)
   }
