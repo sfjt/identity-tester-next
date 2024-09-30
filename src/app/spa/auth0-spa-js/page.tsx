@@ -131,7 +131,7 @@ export default function Page() {
 
   return (
     <main>
-      <h2>SPA: auth0-spa-js</h2>
+      <h2>Single Page Application: auth0-spa-js</h2>
       <section>
         <h3>Login and logout</h3>
         <ul className="login-logout-list">

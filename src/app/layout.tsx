@@ -29,7 +29,7 @@ export default function RootLayout({
                 <a href={"/api/auth/login?" + mfaAPITesterLoginParams}>MFA API Tester</a>
               </li>
               <li>
-                <a href="/spa/auth0-spa-js">SPA: auth0-spa-js</a>
+                <a href="/spa/auth0-spa-js">Single Page Application: auth0-spa-js</a>
               </li>
             </ul>
           </nav>
