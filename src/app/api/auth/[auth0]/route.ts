@@ -26,7 +26,9 @@ const handler = auth0().handleAuth({
   login: auth0().handleLogin((req) => {
     const loginOptions: CustomLoginOptions = {
       returnTo: defaultReturnTo,
-      authorizationParams: {},
+      authorizationParams: {
+        scope: "openid profile email offline_access"
+      },
     }
     if (req.url) {
       const url = new URL(req.url)
