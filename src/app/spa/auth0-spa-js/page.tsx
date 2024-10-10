@@ -40,7 +40,7 @@ async function createClient(uri: string) {
   try {
     console.log("SWR: executing getTokenSilently...")
     accessToken = await client.getTokenSilently({
-      timeoutInSeconds: 10
+      timeoutInSeconds: 10,
     })
   } catch (err) {
     console.log(err)
